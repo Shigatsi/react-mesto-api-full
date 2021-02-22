@@ -23,10 +23,13 @@ const getUserById = (req, res) => {
 
 const postUser = (req, res) => {
   const { name, about, avatar, email, password } = req.body;
-  User.create({ name, about, avatar, email, password })
-    .then(hash => User.create({
-      email: req.body.email,
-      password: hash, // записываем хеш в базу
+  bcrypt.hash(password, 10)
+    .then((hash)=> User.create({
+      name,
+      about,
+      avatar,
+      email,
+      password: hash
     }))
     .then((user) => res.send({ data: user }))
     .catch((err) => {
