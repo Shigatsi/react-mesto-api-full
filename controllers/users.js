@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const User = require('../models/user');
 const errorHandler = require('../utils/errorHandler');
 
@@ -8,7 +9,6 @@ const getAllUsers = (req, res) => {
 };
 
 const getUserById = (req, res) => {
-  console.log(req.params.id);
   User.findById(req.params.id)
     .then((user) => {
       if (user) {
@@ -22,9 +22,12 @@ const getUserById = (req, res) => {
 };
 
 const postUser = (req, res) => {
-  const { name, about, avatar } = req.body;
-  console.log(req.body);
-  User.create({ name, about, avatar })
+  const { name, about, avatar, email, password } = req.body;
+  User.create({ name, about, avatar, email, password })
+    .then(hash => User.create({
+      email: req.body.email,
+      password: hash, // записываем хеш в базу
+    }))
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       errorHandler(res, err);
