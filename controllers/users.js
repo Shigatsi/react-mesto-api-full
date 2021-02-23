@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const User = require('../models/user');
+const { NotFoundErr } = require('../errors/index');
 const errorHandler = require('../utils/errorHandler');
 
 const getAllUsers = (req, res) => {
@@ -8,17 +9,15 @@ const getAllUsers = (req, res) => {
     .catch(() => res.status(500).send({ message: 'На сервере произошла ошибка' }));
 };
 
-const getUserById = (req, res) => {
+const getUserById = (req, res, next) => {
   User.findById(req.params.id)
     .then((user) => {
       if (user) {
         return res.send({ data: user });
       }
-      return res.status(404).send({ message: 'Пользователь не найден' });
+      throw new NotFoundErr('Пользователь не найден');
     })
-    .catch((err) => {
-      errorHandler(res, err);
-    });
+    .catch(next);
 };
 
 const postUser = (req, res) => {
