@@ -1,9 +1,9 @@
-const BadRequestErr = require('./bad-request-err');
-const UnauthorizedErr = require('./unauthorized-err');
-const ForbidenErr = require('./forbiden-err');
-const NotFoundErr = require('./not-found-err');
-const ConflictErr = require('./conflict-err');
-const InternalServerErr = require('./server-err');
+const BadRequestErr = require('./bad-request-err');//400
+const UnauthorizedErr = require('./unauthorized-err');//401
+const ForbidenErr = require('./forbiden-err');//403
+const NotFoundErr = require('./not-found-err');//404
+const ConflictErr = require('./conflict-err');//409
+const InternalServerErr = require('./server-err');//500
 
 module.exports = {
   BadRequestErr,
