@@ -1,4 +1,6 @@
+const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const User = require('../models/user');
+const { NotFoundErr, UnauthorizedErr } = require('../errors/index');
 const errorHandler = require('../utils/errorHandler');
 
 const getAllUsers = (req, res) => {
@@ -7,31 +9,34 @@ const getAllUsers = (req, res) => {
     .catch(() => res.status(500).send({ message: 'На сервере произошла ошибка' }));
 };
 
-const getUserById = (req, res) => {
-  console.log(req.params.id);
+const getUserById = (req, res, next) => {
   User.findById(req.params.id)
     .then((user) => {
       if (user) {
         return res.send({ data: user });
       }
-      return res.status(404).send({ message: 'Пользователь не найден' });
+      throw new NotFoundErr('Пользователь не найден');
     })
-    .catch((err) => {
-      errorHandler(res, err);
-    });
+    .catch(next);
 };
 
-const postUser = (req, res) => {
-  const { name, about, avatar } = req.body;
-  console.log(req.body);
-  User.create({ name, about, avatar })
+const postUser = (req, res, next) => {
+  const { name, about, avatar, email, password } = req.body;
+  bcrypt.hash(password, 10)
+    .then((hash)=> User.create({
+      name,
+      about,
+      avatar,
+      email,
+      password: hash
+    }))
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       errorHandler(res, err);
     });
 };
 
-const updateUserProfile = (req, res) => {
+const updateUserProfile = (req, res, next) => {
   const { name, about } = req.body;
   User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
     .then((user) => {
@@ -45,7 +50,7 @@ const updateUserProfile = (req, res) => {
     });
 };
 
-const updateUserAvatar = (req, res) => {
+const updateUserAvatar = (req, res, next) => {
   const { avatar } = req.body;
   User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
     .then((user) => {
@@ -59,6 +64,33 @@ const updateUserAvatar = (req, res) => {
     });
 };
 
+const login = (req, res, next) => {
+  const { email, password } = req.body;
+
+  User.findOne({ email })
+    .then((user) => {
+      if (!user) {
+        throw new UnauthorizedErr('Неправильные почта или пароль');
+      }
+      return  bcrypt.compare(password, user.password);
+    })
+    .then((matched) => {
+      if (!matched) {
+        // хеши не совпали — отклоняем промис
+        throw new UnauthorizedErr('Неправильные почта или пароль');
+      }
+
+      // аутентификация успешна
+      res.send({ message: 'Всё верно!' });
+    })
+    .catch(next)
+    // .catch((err) => {
+    //   res
+    //     .status(401)
+    //     .send({ message: err.message });
+    // });
+};
+
 module.exports = {
-  getAllUsers, getUserById, postUser, updateUserProfile, updateUserAvatar,
+  getAllUsers, getUserById, postUser, updateUserProfile, updateUserAvatar, login
 };
