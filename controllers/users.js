@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const User = require('../models/user');
-const { NotFoundErr, UnauthorizedErr } = require('../errors/index');
+const { NotFoundErr, UnauthorizedErr, ConflictErr, BadRequestErr } = require('../errors/index');
 const errorHandler = require('../utils/errorHandler');
 
 const getAllUsers = (req, res) => {
@@ -22,18 +22,22 @@ const getUserById = (req, res, next) => {
 
 const postUser = (req, res, next) => {
   const { name, about, avatar, email, password } = req.body;
-  bcrypt.hash(password, 10)
+  User.findOne({email})
+    .then((user) => {
+      if (user) {
+        throw new ConflictErr('Email уже используется')
+      }
+      return bcrypt.hash(password, 10)
+    })
     .then((hash)=> User.create({
-      name,
-      about,
-      avatar,
-      email,
-      password: hash
-    }))
-    .then((user) => res.send({ data: user }))
-    .catch((err) => {
-      errorHandler(res, err);
-    });
+          name,
+          about,
+          avatar,
+          email,
+          password: hash
+        }))
+    .then(({name, about, avatar, email}) => res.send({name, about, avatar, email}))
+    .catch(next)
 };
 
 const updateUserProfile = (req, res, next) => {
@@ -67,29 +71,15 @@ const updateUserAvatar = (req, res, next) => {
 const login = (req, res, next) => {
   const { email, password } = req.body;
 
-  User.findOne({ email })
-    .then((user) => {
-      if (!user) {
-        throw new UnauthorizedErr('Неправильные почта или пароль');
-      }
-      return  bcrypt.compare(password, user.password);
-    })
-    .then((matched) => {
-      if (!matched) {
-        // хеши не совпали — отклоняем промис
-        throw new UnauthorizedErr('Неправильные почта или пароль');
-      }
+  return User.findUserByCredentials(email, password)
+    .then((user)=> {
 
-      // аутентификация успешна
-      res.send({ message: 'Всё верно!' });
+    })
+    .then((user)=> {
+
     })
     .catch(next)
-    // .catch((err) => {
-    //   res
-    //     .status(401)
-    //     .send({ message: err.message });
-    // });
-};
+}
 
 module.exports = {
   getAllUsers, getUserById, postUser, updateUserProfile, updateUserAvatar, login
