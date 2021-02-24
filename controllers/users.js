@@ -71,29 +71,15 @@ const updateUserAvatar = (req, res, next) => {
 const login = (req, res, next) => {
   const { email, password } = req.body;
 
-  User.findOne({ email })
-    .then((user) => {
-      if (!user) {
-        throw new UnauthorizedErr('Неправильные почта или пароль');
-      }
-      return  bcrypt.compare(password, user.password);
-    })
-    .then((matched) => {
-      if (!matched) {
-        // хеши не совпали — отклоняем промис
-        throw new UnauthorizedErr('Неправильные почта или пароль');
-      }
+  return User.findUserByCredentials(email, password)
+    .then((user)=> {
 
-      // аутентификация успешна
-      res.send({ message: 'Всё верно!' });
+    })
+    .then((user)=> {
+
     })
     .catch(next)
-    // .catch((err) => {
-    //   res
-    //     .status(401)
-    //     .send({ message: err.message });
-    // });
-};
+}
 
 module.exports = {
   getAllUsers, getUserById, postUser, updateUserProfile, updateUserAvatar, login
