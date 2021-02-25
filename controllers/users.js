@@ -75,7 +75,7 @@ const login = (req, res, next) => {
 
   return User.findUserByCredentials(email, password)
     .then((user)=> {
-      const token = jwt.sign({_id:user.id}, JWT_SECRET, { expiresIn: 3600 })
+      const token = jwt.sign({_id:user.id}, JWT_SECRET, { expiresIn: '1h' })
       return res.send({token})
     })
 
