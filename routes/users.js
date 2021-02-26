@@ -3,7 +3,7 @@ const router = require('express').Router();
 const authMiddleware = require('../middlewares/auth');
 const { validateLogin, validateUser } = require('../middlewares/validators');
 const {
-  getAllUsers, getUserById, postUser, updateUserProfile, updateUserAvatar, login, getCurrentUser
+  getAllUsers, getUserById, postUser, updateUserProfile, updateUserAvatar, login, getCurrentUser,
 } = require('../controllers/users');
 
 router.post('/signin', validateLogin, login);
