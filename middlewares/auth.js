@@ -10,9 +10,10 @@ const auth = (req, res, next) => {
   }
   // извлечём токен
   const token = authorization.replace('Bearer ', '');
+  let payload;
   try{
     // верифицируем токен
-    const payload = jwt.verify(token, JWT_SECRET);
+    payload = jwt.verify(token, JWT_SECRET);
     console.log(payload)
   } catch(err) {
     throw new UnauthorizedErr('Необходима авторизация')

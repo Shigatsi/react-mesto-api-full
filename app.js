@@ -7,7 +7,8 @@ const { PORT = 3000 } = process.env;
 const app = express();
 
 const routes = require('./routes/index');
-const errorHandler = require('./middlewares/errorHandler')
+const errorHandler = require('./middlewares/errorHandler');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,13 +20,9 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true
 });
 
-app.use((req, res, next) => {
-  req.user = {
-    _id: '6013e07ac5fd8c1d68ba9d2d', // вставьте сюда _id созданного в предыдущем пункте пользователя
-  };
-  next();
-});
+app.use(requestLogger);
 app.use(routes);
+app.use(errorLogger);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
