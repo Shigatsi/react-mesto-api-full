@@ -11,6 +11,18 @@ const getAllUsers = (req, res) => {
     .catch(() => res.status(500).send({ message: 'На сервере произошла ошибка' }));
 };
 
+const getCurrentUser = (req, res, next) => {
+  User.findById(req.user._id)
+    .then((user)=> {
+      console.log(user)
+      if(user) {
+        return res.send({ data: user })
+      }
+      throw new NotFoundErr('Пользователь не найден');
+    })
+    .catch(next)
+}
+
 const getUserById = (req, res, next) => {
   User.findById(req.params.id)
     .then((user) => {
@@ -83,5 +95,5 @@ const login = (req, res, next) => {
 }
 
 module.exports = {
-  getAllUsers, getUserById, postUser, updateUserProfile, updateUserAvatar, login
+  getAllUsers, getCurrentUser, getUserById, postUser, updateUserProfile, updateUserAvatar, login
 };
