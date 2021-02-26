@@ -2,13 +2,19 @@ const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const jwt = require('jsonwebtoken'); // импортируем модуль jsonwebtoken
 const User = require('../models/user');
 const { NODE_ENV, JWT_SECRET } =  process.env;
-const { NotFoundErr, UnauthorizedErr, ConflictErr, BadRequestErr } = require('../errors/index');
+const { NotFoundErr, UnauthorizedErr, ConflictErr, BadRequestErr, InternalServerErr } = require('../errors/index');
 const errorHandler = require('../utils/errorHandler');
 
 const getAllUsers = (req, res) => {
   User.find({})
-    .then((users) => res.send({ data: users }))
-    .catch(() => res.status(500).send({ message: 'На сервере произошла ошибка' }));
+    .then((users) => {
+      if(users) {
+        res.send({ data: users })
+      }
+      throw new InternalServerErr( 'На сервере произошла ошибка')
+      })
+    .catch(next);
+
 };
 
 const getCurrentUser = (req, res, next) => {
@@ -61,11 +67,9 @@ const updateUserProfile = (req, res, next) => {
       if (name && about) {
         return res.send({ data: user });
       }
-      return res.status(400).send({ message: 'Переданы некорректные данные' });
+      throw new BadRequestErr('Переданы некорректные данные');
     })
-    .catch((err) => {
-      errorHandler(res, err);
-    });
+    .catch(next)
 };
 
 const updateUserAvatar = (req, res, next) => {
@@ -77,9 +81,7 @@ const updateUserAvatar = (req, res, next) => {
       }
       return res.status(400).send({ message: 'Переданы некорректные данные' });
     })
-    .catch((err) => {
-      errorHandler(res, err);
-    });
+    .catch(next)
 };
 
 const login = (req, res, next) => {
