@@ -8,7 +8,7 @@ const {
 } = require('../controllers/cards');
 
 router.get('/cards', authMiddleware, getAllCards);
-router.post('/cards', authMiddleware, validateCard, postCard);
+router.post('/cards', authMiddleware, validateCard, postCard);// validateCard
 router.delete('/cards/:id', authMiddleware, deleteCardById);
 router.put('/cards/:id/likes', authMiddleware, likeCard);
 router.delete('/cards/:id/likes', authMiddleware, dislikeCard);

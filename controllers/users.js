@@ -21,7 +21,7 @@ const getAllUsers = (req, res, next) => {
 const getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
-      console.log(user);
+      console.log('currentUser from controllers/users.js', user);
       if (user) {
         return res.send({ data: user });
       }
@@ -59,9 +59,7 @@ const postUser = (req, res, next) => {
       email,
       password: hash,
     }))
-    .then(() => res.send({
-      name, about, avatar, email,
-    })) // {name, about, avatar, email}
+    .then(() => res.send({name, about, avatar, email})) //{name, about, avatar, email}
     .catch(next);
 };
 

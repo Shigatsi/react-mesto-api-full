@@ -2,7 +2,7 @@ const { celebrate, Joi } = require('celebrate');
 const validator = require('validator');
 
 const validateLink = (value, helpers) => {
-  if (validator.isUrl(value)) {
+  if (validator.isURL(value)) {
     return value;
   }
   return helpers.error('Некорректный URL');
