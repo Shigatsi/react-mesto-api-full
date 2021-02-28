@@ -1,0 +1,23 @@
+@import url(./_hidden/elements__rbin-button_hiden.css);
+.elements__rbin-button{
+background: no-repeat url(../../../images/trash.svg);
+width:18px;
+height:19.3px;
+align-self: center;
+border: none;
+z-index: 2;
+top: 18px;
+position: absolute;
+right: 15px;
+
+}
+
+.elements__rbin-button:hover{
+  opacity: .6;
+  cursor: pointer;
+  transition: .2s ease-in-out;
+}
+
+.elements__rbin-button:focus{
+  outline: none;
+}

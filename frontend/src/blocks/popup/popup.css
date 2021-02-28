@@ -1,0 +1,55 @@
+@import url(./__content/popup__content.css);
+@import url(./__form/popup__form.css);
+@import url(./__form/_theme/_auth/popup__form_theme_auth.css);
+@import url(./__close-button/popup__close-button.css);
+@import url(./__close-button/_theme/_auth/popup__close-button_theme_auth.css);
+@import url(./__header/popup__header.css);
+@import url(./__header/_theme/_auth/popup__header_theme_auth.css);
+@import url(./__input/popup__input.css);
+@import url(./__input/_theme/_auth/popup__input_theme_auth.css);
+@import url(./input-error/popup__input-error.css);
+@import url(./__save-button/popup__save-button.css);
+@import url(./__save-button/_theme/_auth/popup__save-button_theme_auth.css);
+@import url(./__fullsize-img-container/popup__fullsize-img-container.css);
+@import url(./__fullsize-img-caption/popup__fullsize-img-caption.css);
+@import url(./__fullsize-img/popup__fullsize-img.css);
+@import url(./__link/popup__link.css);
+@import url(./__tooltip-img/popup__toltip-img.css);
+@import url(./__tooltip-img-container/popup__tooltip-img-container.css);
+@import url(./__tooltip-img-caption/popup__tooltip-img-caption.css);
+
+
+.popup{
+  margin: 0 -42.7px 0 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+
+  visibility: visible;
+  opacity:1;
+
+  -moz-transition: visibility 0s, opacity .5s linear;
+  -webkit-transition: visibility 0s, opacity .5s linear;
+  -o-transition: visibility 0s, opacity .5s linear;
+  -ms-transition: visibility 0s, opacity .5s linear;
+  transition: visibility 0s, opacity .5s linear;
+}
+
+@media screen and (max-width: 540px){
+  .popup{
+    margin:0 -30.5px 0 0;
+  }
+}
+
+@media screen and (max-width: 400px){
+  .popup{
+    margin:0 -22.8px 0 0;
+  }
+}

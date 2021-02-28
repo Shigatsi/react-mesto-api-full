@@ -1,0 +1,22 @@
+.profile__avatar-edit-button{
+  background: no-repeat center url(../../../images/avatarEdit.svg);
+  width: 26px;
+  height: 26px;
+  align-self: center;
+  margin-top: 5px;
+  border: none;
+  /* box-sizing: border-box; */
+}
+
+.profile__avatar-edit-button:focus{
+  outline: none;
+}
+
+.profile__avatar-edit-button:hover{
+  cursor: pointer;
+}
+
+
+/* По аналогии с предыдущим пунктом добавьте функцию handleCardDelete в Main, а также пропс onCardDelete и обработчик handleDeleteClick в Card.
+После запроса в API, обновите стейт cards с помощью метода filter: создайте копию массива, исключив из него удалённую карточку.
+Пока не будем добавлять поддержку всплывающего окна подтверждения. Будьте осторожны, удаляя любимые карточки! */

@@ -1,0 +1,23 @@
+.profile__lifestyle{
+  font-weight: normal;
+  grid-area: lifestyle;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+
+@media screen and (max-width: 800px){
+  .profile__lifestyle{
+    justify-self: center;
+  }
+}
+
+@media screen and (max-width: 540px){
+  .profile__lifestyle{
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

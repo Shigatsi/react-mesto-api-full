@@ -1,0 +1,29 @@
+@import url(./__logo/header__logo.css);
+@import url(./__info/header__info.css);
+@import url(./__user-login/header__user-login.css);
+@import url(./__link/header__link.css);
+
+
+.header{
+  max-width: 882px;
+  padding-bottom: 40.6px;
+  margin: 0 auto 40px;
+  padding-top: 45px;
+  border-bottom: 1px solid rgb(84, 84, 84, .7);
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 1024px){
+  .header{
+    max-width: calc(100% - 142px);
+  }
+}
+
+@media screen and (max-width: 540px){
+  .header{
+    max-width: calc(100% - 54px);
+    padding-top: 28px;
+    padding-bottom: 31.6px;
+  }
+}

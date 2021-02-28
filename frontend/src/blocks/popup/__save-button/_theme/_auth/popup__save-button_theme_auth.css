@@ -1,0 +1,9 @@
+.popup__save-button_theme_auth{
+  background-color: #fff;
+  color: #000;
+  margin: 216px 36px 15px 36px;
+}
+
+.popup__save-button_theme_auth:hover{
+  background-color: rgba(255, 255, 255, 0.8);
+}

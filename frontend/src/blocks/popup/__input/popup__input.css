@@ -1,0 +1,21 @@
+.popup__input{
+  font-family: inherit;
+  height: 27.34px;
+  margin: 30px 36px 0;
+  border: none;
+  border-bottom: 1px solid #bcbcc4;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+
+.popup__input:invalid{
+  border-bottom: 1px solid #FF0000;;
+}
+
+@media screen and (max-width: 540px){
+  .popup__input{
+    margin: 20px 20px 0;
+    height: 18px;
+  }
+}

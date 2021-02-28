@@ -1,0 +1,15 @@
+@import url(./_hidden/popup__link_hidden.css);
+
+.popup__link {
+  color:#fff;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.popup__link:hover {
+  cursor: pointer;
+  color: rgba(225, 225, 225, .8);
+  transition: .2s ease-in-out;
+}

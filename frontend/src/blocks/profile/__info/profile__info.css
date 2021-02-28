@@ -1,0 +1,25 @@
+.profile__info{
+  display: grid;
+  align-items: baseline;
+  grid-gap: 16px 17px;
+  max-width: 336px;
+  color: #fff;
+  grid-template-areas:
+  "Name Btn"
+   "lifestyle .";
+
+}
+
+@media screen and (max-width: 800px){
+  .profile__info{
+    grid-template-areas:
+  "Name Btn"
+   "lifestyle lifestyle";
+  }
+}
+
+@media screen and (max-width: 540px){
+  .profile__info{
+    grid-gap: 14px 1px;
+  }
+}

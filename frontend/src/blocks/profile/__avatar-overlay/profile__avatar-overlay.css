@@ -1,0 +1,23 @@
+.profile__avatar-overlay {
+  background-color: rgba(0, 0, 0, .8);
+  z-index: 1;
+  position: relative;
+  margin-top: -124px;
+  transition: .5s ease-in-out;
+  width: 120px;
+  height:  120px;
+  opacity: 0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+}
+.profile__avatar-overlay:hover {
+  opacity: 1;
+}
+
+@media screen and (max-width: 800px){
+  .profile__avatar-overlay{
+    margin-top: -138px;
+
+  }
+}
