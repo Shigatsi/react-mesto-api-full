@@ -13,6 +13,10 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const allowedCors = [
   'localhost:3000',
+  'http://shigatsimesto.students.nomoredomains.icu',
+  'http://www.shigatsimesto.students.nomoredomains.icu',
+  'https://shigatsimesto.students.nomoredomains.icu',
+  'https://www.shigatsimesto.students.nomoredomains.icu',
 ];
 
 app.use(cors());
