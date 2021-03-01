@@ -1,6 +1,5 @@
 const Card = require('../models/card');
 const { NotFoundErr, ForbidenErr } =require('../errors/index');
-const errorHandler = require('../utils/errorHandler');
 
 const getAllCards = (req, res) => {
   Card.find({})
@@ -41,7 +40,6 @@ const likeCard = (req, res, next) => {
       if (card) {
         return res.send({ data: card });
       }
-      // return res.status(404).send({ message: 'Карточка не найдена' });
       throw new NotFoundErr('Карточка не найдена');
     })
     .catch(next);
@@ -57,7 +55,7 @@ const dislikeCard = (req, res) => {
       if (card) {
         return res.send({ data: card });
       }
-      return res.status(404).send({ message: 'Карточка не найдена' });
+      throw new NotFoundErr('Карточка не найдена');
     })
     .catch(next)
 };
@@ -69,6 +67,3 @@ module.exports = {
   likeCard,
   dislikeCard,
 };
-
-
-// errorHandler и return res.status() в контроллере cards быть не должно согласно условию задания о централизованной обработке ошибок

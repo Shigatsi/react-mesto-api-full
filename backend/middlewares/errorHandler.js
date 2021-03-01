@@ -6,7 +6,7 @@ const errorHandler = (err, req, res, next) => {
   if (err instanceof CelebrateError) {
     res.status(400).send(err.details.get('body'));
   }
-  if (err.statusCode)  {
+  if (err.statusCode) {
     res.status(err.statusCode).send({ message: err.message });
   }
   if (['CastError', 'ValidationError'].includes(err.name)) {
