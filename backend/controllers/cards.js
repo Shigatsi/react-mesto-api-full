@@ -1,6 +1,5 @@
 const Card = require('../models/card');
 const errorHandler = require('../utils/errorHandler');
-const { getCurrentUser } = require('./users');
 
 const getAllCards = (req, res) => {
   Card.find({})
@@ -10,9 +9,8 @@ const getAllCards = (req, res) => {
 
 const postCard = (req, res) => {
   console.log('req.user', req.user);
-  debugger;
   const { name, link } = req.body;
-  Card.create({ name, link, owner: req.user._id})
+  Card.create({ name, link, owner: req.user._id })
     .then((card) => res.send({ data: card }))
     .catch((err) => {
       errorHandler(res, err);

@@ -59,7 +59,9 @@ const postUser = (req, res, next) => {
       email,
       password: hash,
     }))
-    .then(() => res.send({name, about, avatar, email})) //{name, about, avatar, email}
+    .then(() => res.send({
+      name, about, avatar, email,
+    })) // {name, about, avatar, email}
     .catch(next);
 };
 
