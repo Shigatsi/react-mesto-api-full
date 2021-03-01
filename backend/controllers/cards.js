@@ -1,5 +1,5 @@
 const Card = require('../models/card');
-const { NotFoundErr, ForbidenErr } =require('../errors/index');
+const { NotFoundErr, ForbidenErr } = require('../errors/index');
 
 const getAllCards = (req, res) => {
   Card.find({})
@@ -12,22 +12,21 @@ const postCard = (req, res, next) => {
   const { name, link } = req.body;
   Card.create({ name, link, owner: req.user._id })
     .then((card) => res.send({ data: card }))
-    .catch(next)
+    .catch(next);
 };
 
 const deleteCardById = (req, res, next) => {
   Card.findByIdAndRemove(req.params.id)
     .then((card) => {
-      if(!card) {
-        throw new NotFoundErr(`Карточка с id${req.params.id} не найдена`)
+      if (!card) {
+        throw new NotFoundErr(`Карточка с id${req.params.id} не найдена`);
       }
-       if (card.owner.toString() !== req.user._id) {
-         throw new ForbidenErr('Удалить карточку может только автор карточки')
-       }
+      if (card.owner.toString() !== req.user._id) {
+        throw new ForbidenErr('Удалить карточку может только автор карточки');
+      }
       return res.send({ data: card });
     })
-  .catch(next)
-
+    .catch(next);
 };
 
 const likeCard = (req, res, next) => {
@@ -45,7 +44,7 @@ const likeCard = (req, res, next) => {
     .catch(next);
 };
 
-const dislikeCard = (req, res) => {
+const dislikeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.id,
     { $pull: { likes: req.user._id } }, // убрать _id из массива
@@ -57,7 +56,7 @@ const dislikeCard = (req, res) => {
       }
       throw new NotFoundErr('Карточка не найдена');
     })
-    .catch(next)
+    .catch(next);
 };
 
 module.exports = {
