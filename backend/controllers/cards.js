@@ -42,7 +42,7 @@ const likeCard = (req, res, next) => {
         return res.send({ data: card });
       }
       // return res.status(404).send({ message: 'Карточка не найдена' });
-      // throw new NotFoundErr('Карточка не найдена');
+      throw new NotFoundErr('Карточка не найдена');
     })
     .catch(next);
 };
@@ -59,9 +59,7 @@ const dislikeCard = (req, res) => {
       }
       return res.status(404).send({ message: 'Карточка не найдена' });
     })
-    .catch((err) => {
-      errorHandler(res, err);
-    });
+    .catch(next)
 };
 
 module.exports = {
