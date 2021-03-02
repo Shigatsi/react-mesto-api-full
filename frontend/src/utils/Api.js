@@ -126,7 +126,7 @@ class Api {
 
 const api = new Api  ({
   // baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-14',
-  baseUrl: 'http://api.shigatsimesto.students.nomoredomains.icu',
+  baseUrl: 'https://api.shigatsimesto.students.nomoredomains.icu',
   headers: `Bearer ${localStorage.getItem('token')}`
 
 })
