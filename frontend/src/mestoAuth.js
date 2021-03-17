@@ -1,5 +1,6 @@
 // export const BASE_URL = 'https://auth.nomoreparties.co';
-export const BASE_URL = 'https://api.shigatsimesto.students.nomoredomains.icu'
+import baseUrlHandler from '../src/utils/baseUrlHandler';
+export const BASE_URL = baseUrlHandler();
 
 const checkRes = (res) => res.ok ? res.json() : Promise.reject('Ошибка на сервере');
 //регистрация

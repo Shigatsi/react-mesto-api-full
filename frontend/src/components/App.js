@@ -9,7 +9,7 @@ import AddPlacePopup from './AddPlacePopup';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import Footer from './Footer';
-import api from '../utils/api';
+import api from '../utils/Api';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 import Login from './Login';
 import Register from './Register';

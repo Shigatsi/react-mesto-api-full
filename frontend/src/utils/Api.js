@@ -1,3 +1,4 @@
+import baseUrlHandler from './baseUrlHandler';
 
 //конструктор API
 class Api {
@@ -124,9 +125,10 @@ class Api {
   }
 }
 
+
+
 const api = new Api  ({
-  // baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-14',
-  baseUrl: 'https://api.shigatsimesto.students.nomoredomains.icu',
+  baseUrl: baseUrlHandler(),
   headers: `Bearer ${localStorage.getItem('token')}`
 
 })
